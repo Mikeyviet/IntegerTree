@@ -137,6 +137,7 @@ public class IntegerTreeMN {
             int h =  maxHeight(root);
             for(int i = 1; i <= h; i++){
                 printCurrentLevel(root, i);
+                System.out.println();
             }
         }
 
@@ -148,11 +149,6 @@ public class IntegerTreeMN {
             if(level == 1){
                 System.out.print(center(root.getData(), 4, ' '));
             }else if(level > 1){
-                if(level > 2)
-                {
-                    System.out.println();
-
-                }
                 printCurrentLevel(root.right, level - 1);
                 printCurrentLevel(root.left, level - 1);
             }
