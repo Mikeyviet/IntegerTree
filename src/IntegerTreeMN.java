@@ -5,7 +5,7 @@ public class IntegerTreeMN {
     private static class Tree{
 
         // point to the top node of the tree
-        private static Node root;
+        private Node root;
         
         
         /**
@@ -13,38 +13,32 @@ public class IntegerTreeMN {
          * @param value
          * @description Inserts new node into the tree
          */
-        public void insertNode(int value) {
-
-            Node temp = new Node(value);
-            // if root is empty, insert new node as root
+        public Node insertData(Node root, int value){
             if(root == null){
-                root = temp;
+                root = new Node(value);
+                return root;
             }
-            else{
-                Node current = root;
-
-                Node parent;
-
-                while(true){
-                    parent = current;
-                    if(value <= current.getData()){
-                        current = current.left;
-
-                        if(current == null){
-                            parent.setLeft(temp);
-                            return;
-                        }
-                    }else{
-                        current = current.right;
-
-                        if(current == null){
-                            parent.setRight(temp);;
-                            return;
-                        }
-                    }
-                }
+            
+            if(root.getData() <= value){
+                root.left = insertData(root.left, value);
+                return root;
+            }else if(root.getData() >= value){
+                root.right = insertData(root.right, value);
+                return root;
             }
-        }// end insertData
+            return root;
+
+        }
+        /**
+         * @name add
+         * @param value
+         * @description Starts recursive call to insert data into the tree
+         */
+        public void add(int value){
+            root = insertData(root, value);
+        }
+
+
 
         public void displayTree(Node current){
             //current = root;
@@ -55,8 +49,8 @@ public class IntegerTreeMN {
                     drawBranches(current);
 
                 }
-                displayTree(current.left);
-                displayTree(current.right);
+                displayTree(current.getLeft());
+                displayTree(current.getRight());
             }
 
         }
@@ -93,7 +87,12 @@ public class IntegerTreeMN {
             }
         }
 
-        static void printLevelOrder(Node root) {
+        /**
+         * @name printLevelOrder
+         * @param root
+         * @description prints the elements of tree in level order
+         */
+        void printLevelOrder(Node root) {
             Queue<Node> queue = new LinkedList<Node>();
             queue.add(root);
             while (!queue.isEmpty()) {
@@ -112,9 +111,6 @@ public class IntegerTreeMN {
             }
         }
     }
-
-
-
 
     private static class Node {
         private int data;
@@ -176,6 +172,9 @@ public class IntegerTreeMN {
 
         
 
+        /**
+         * @param args
+         */
         public static void main(String[] args) {
 
             int number;
@@ -184,18 +183,18 @@ public class IntegerTreeMN {
 
 
 
-            myTree.insertNode(11);
-            myTree.insertNode(3);
-            myTree.insertNode(15);
-            myTree.insertNode(1);
-            myTree.insertNode(7);
-            myTree.insertNode(13);
-            myTree.insertNode(19);
-            myTree.insertNode(2);
-            myTree.insertNode(5);
-            myTree.insertNode(9);
-            myTree.insertNode(17);
-            myTree.insertNode(8);
+            myTree.add(11);
+            myTree.add(3);
+            myTree.add(15);
+            myTree.add(1);
+            myTree.add(7);
+            myTree.add(13);
+            myTree.add(19);
+            myTree.add(2);
+            myTree.add(5);
+            myTree.add(9);
+            myTree.add(17);
+            myTree.add(8);
 
             myTree.displayTree(myTree.root);
 
