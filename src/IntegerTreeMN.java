@@ -1,5 +1,11 @@
 
 import java.util.*;
+
+import javax.swing.GroupLayout.Alignment;
+
+import java.text.*; // for output formatting
+
+
 public class IntegerTreeMN {
 
     private static class Tree{
@@ -33,6 +39,7 @@ public class IntegerTreeMN {
 
         }
         /**
+         * 
          * @name add
          * @param value
          * @description Starts recursive call to insert data into the tree
@@ -106,7 +113,7 @@ public class IntegerTreeMN {
             queue.add(root);
             while (!queue.isEmpty()) {
                 Node tempNode = queue.poll();
-                System.out.print(tempNode.data + " ");
+                System.out.print(center(tempNode.data, 4, ' ') + " ");
      
                 /*add left child to the queue */
                 if (tempNode.left != null) {
@@ -120,7 +127,10 @@ public class IntegerTreeMN {
             }
         }
     }
-
+    /**
+     * @name Node
+     * @description Node class for the tree
+     */
     private static class Node {
         private int data;
         private Node left;
@@ -178,6 +188,15 @@ public class IntegerTreeMN {
             this.right = right;
         }
     }
+
+    public static String center(int num, int length, char padding){
+        String s = Integer.toString(num);
+        StringBuilder sb = new StringBuilder(length);
+        sb.setLength((length - s.length()) / 2);
+        sb.append(s);
+        sb.setLength(length);
+        return sb.toString().replace('\0', padding);
+    }
         /**
          * @param args
          */
@@ -201,6 +220,9 @@ public class IntegerTreeMN {
             myTree.add(9);
             myTree.add(17);
             myTree.add(8);
+
+            myTree.add(1976);
+            myTree.add(666);
 
             myTree.displayTree(myTree.root);
 
