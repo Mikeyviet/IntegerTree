@@ -14,15 +14,18 @@ public class IntegerTreeMN {
          * @description Inserts new node into the tree
          */
         public Node insertData(Node root, int value){
+            // creates new node if the current node is null
             if(root == null){
                 root = new Node(value);
                 return root;
             }
-            
+            // compare value of current node with value passed in
             if(root.getData() <= value){
+                // recursive call to travers down left side of tree with current node 
                 root.left = insertData(root.left, value);
                 return root;
             }else if(root.getData() >= value){
+                // recursive call to travers down right side of tree with current node
                 root.right = insertData(root.right, value);
                 return root;
             }
@@ -55,6 +58,12 @@ public class IntegerTreeMN {
 
         }
 
+        /**
+         * @name maxHeight
+         * @param current
+         * @return height of tree
+         * @description Finds the height of the tree
+         */
         public int maxHeight(Node current){
             if(current == null){
                 return 0;
@@ -168,10 +177,7 @@ public class IntegerTreeMN {
         public void setRight(Node right) {
             this.right = right;
         }
-    
-
-        
-
+    }
         /**
          * @param args
          */
@@ -205,4 +211,3 @@ public class IntegerTreeMN {
         }
     }
 
-}
