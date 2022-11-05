@@ -108,24 +108,58 @@ public class IntegerTreeMN {
          * @param root
          * @description prints the elements of tree in level order
          */
-        void printLevelOrder(Node root) {
-            Queue<Node> queue = new LinkedList<Node>();
-            queue.add(root);
-            while (!queue.isEmpty()) {
-                Node tempNode = queue.poll();
-                System.out.print(center(tempNode.data, 4, ' ') + " ");
+        
+        // void printLevelOrder(Node root) {
+        //     Queue<Node> queue = new LinkedList<Node>();
+        //     queue.add(root);
+        //     while (!queue.isEmpty()) {
+        //         Node tempNode = queue.poll();
+        //         if(maxHeight(root) == 0)
+        //         {
+        //             System.out.println();
+        //         }
+        //         System.out.print(center(tempNode.data, 4, ' ') + " ");
      
-                /*add left child to the queue */
-                if (tempNode.left != null) {
-                    queue.add(tempNode.left);
-                }
+        //         /*add left child to the queue */
+        //         if (tempNode.left != null) {
+        //             queue.add(tempNode.left);
+        //         }
      
-                /*add right right child to the queue */
-                if (tempNode.right != null) {
-                    queue.add(tempNode.right);
-                }
+        //         /*add right right child to the queue */
+        //         if (tempNode.right != null) {
+        //             queue.add(tempNode.right);
+        //         }
+        //     }
+        // }
+
+        public void printLevelOrder(){
+
+            int h =  maxHeight(root);
+            for(int i = 1; i <= h; i++){
+                printCurrentLevel(root, i);
             }
         }
+
+        public void printCurrentLevel(Node root, int level){
+
+            if(root == null){
+                return;
+            }
+            if(level == 1){
+                System.out.print(center(root.getData(), 4, ' '));
+            }else if(level > 1){
+                if(level > 2)
+                {
+                    System.out.println();
+
+                }
+                printCurrentLevel(root.right, level - 1);
+                printCurrentLevel(root.left, level - 1);
+            }
+
+        }
+        
+
     }
     /**
      * @name Node
@@ -221,13 +255,12 @@ public class IntegerTreeMN {
             myTree.add(17);
             myTree.add(8);
 
-            myTree.add(1976);
-            myTree.add(666);
+
 
             myTree.displayTree(myTree.root);
 
             // print by levels of tree
-            myTree.printLevelOrder(myTree.root);
+            myTree.printLevelOrder();
 
             System.out.println("Hello, World!");
         }
