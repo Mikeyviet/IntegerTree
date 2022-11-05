@@ -46,15 +46,70 @@ public class IntegerTreeMN {
             }
         }// end insertData
 
-
         public void displayTree(Node current){
-            Node temp = root;
+            //current = root;
             if(current != null){
-                System.out.println(current.getData());
+
+                System.out.println("  " + current.getData());
+                if(current == root){
+                    drawBranches(current);
+
+                }
                 displayTree(current.left);
                 displayTree(current.right);
             }
 
+        }
+
+        public int maxHeight(Node current){
+            if(current == null){
+                return 0;
+            }else{
+                int leftHeight = maxHeight(current.left);
+                int rightHeight = maxHeight(current.right);
+
+                if(leftHeight > rightHeight){
+                    return (leftHeight + 1);
+                }else{
+                    return (rightHeight + 1);
+                }
+            }
+        }
+        public void drawBranches(Node current){
+
+            if(current == root){
+                if(maxHeight(current)== 5){
+                    System.out.print(" ___");
+                    System.out.print(current.getData());
+                    System.out.println("___");
+                    System.out.print("/");
+                    
+                    System.out.println("        \\");
+                }
+                else{
+                    System.out.println(" " + current.getData());
+                    System.out.println("/  \\");
+                }
+            }
+        }
+
+        static void printLevelOrder(Node root) {
+            Queue<Node> queue = new LinkedList<Node>();
+            queue.add(root);
+            while (!queue.isEmpty()) {
+                Node tempNode = queue.poll();
+                System.out.print(tempNode.data + " ");
+     
+                /*add left child to the queue */
+                if (tempNode.left != null) {
+                    queue.add(tempNode.left);
+                }
+     
+                /*add right right child to the queue */
+                if (tempNode.right != null) {
+                    queue.add(tempNode.right);
+                }
+            }
         }
     }
 
@@ -143,6 +198,9 @@ public class IntegerTreeMN {
             myTree.insertNode(8);
 
             myTree.displayTree(myTree.root);
+
+            // print by levels of tree
+            myTree.printLevelOrder(myTree.root);
 
             System.out.println("Hello, World!");
         }
