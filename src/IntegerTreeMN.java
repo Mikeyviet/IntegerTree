@@ -253,7 +253,6 @@ public class IntegerTreeMN {
 
 
 
-            myTree.displayTree(myTree.root);
 
             // print by levels of tree
             myTree.printLevelOrder();
