@@ -3,6 +3,8 @@ import java.util.*;
 
 import javax.swing.GroupLayout.Alignment;
 
+import org.xml.sax.SAXException;
+
 import java.text.*; // for output formatting
 
 public class IntegerTreeMN {
@@ -347,6 +349,34 @@ public class IntegerTreeMN {
             return sb.toString().replace('\0', padding);
         }
 
+        
+
+        public void fill(Node temp, String[][] children, int level, int lft, int rgt){
+            if(temp != null || temp.getData() == 0){
+                return;
+            }
+            children[level][(lft + rgt) / 2] = String.valueOf(temp.getData());
+            fill(temp.getLeft(), children, level + 1, lft, (lft + rgt) / 2);
+            fill(temp.getRight(), children, level + 1, (lft + rgt) / 2, rgt);
+        }
+
+        public String[][] printableTree(Node root){
+            int height = maxHeight(root);
+            int leaves = (2^height) - 1;
+            String[][] children = new String[height][leaves];
+            fill(root, children, 0, 0, leaves);
+            return children;
+        }
+
+        public void printTreeArray(String[][] children){
+            for(int i = 0; i < children.length; i++){
+                for(int j = 0; j < children[i].length; j++){
+                   System.out.print(children[i][j].toString()); 
+            }
+        }
+        System.out.println();
+    }
+
         /**
          * @param args
          */
@@ -374,6 +404,7 @@ public class IntegerTreeMN {
             // print by levels of tree
             myTree.printLevelOrder();
 
+            myTree.printTreeArray(myTree.printableTree(myTree.root));
             System.out.println("Hello, World!");
         }
     }
